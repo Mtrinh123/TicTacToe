@@ -1,7 +1,7 @@
 # Tic Tac Toe
 Welcome to my simple website to play a simple game of Tic Tac Toe!
 
-It's a two-player game in the browser, written in plain HTML, CSS and JavaScript. There are no frameworks and nothing to install.
+It's a two-player game in the browser, written in HTML, CSS and JavaScript.
 
 ## Features
 
@@ -11,13 +11,12 @@ It's a two-player game in the browser, written in plain HTML, CSS and JavaScript
 - Spots a draw when the board fills up
 - A **Restart** button to start a new game at any time
 - Fits phone and desktop screens
-- Works with screen readers: each square has a label, and turn and result updates are announced
 
 ## How to play
 
-1. Open `index.html` in any modern web browser.
+1. Open `index.html`.
 2. X goes first. Click an empty square to place your mark.
-3. Players take turns until one gets three in a row (across, down or diagonally) or the board is full.
+3. Players take turns until one gets three in a row.
 4. Click **Restart** to play again.
 
 
