@@ -40,7 +40,9 @@ h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0 0 8px; letter-spacing: 2px; 
   background: var(--grid);
   border-radius: 16px;
   padding: 8px;
+  position: relative;
 }
+#board.shake { animation: shake .4s ease-in-out .3s; }
 
 .cell {
   border: none;
@@ -70,6 +72,26 @@ h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0 0 8px; letter-spacing: 2px; 
 
 .cell.win { animation: pulse .8s ease-in-out .3s infinite alternate; }
 
+#board[data-ghost="X"] { --ghost: var(--x); --ghost-mark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' stroke='black' stroke-width='12' stroke-linecap='round'><path d='M10 10L90 90M90 10L10 90'/></svg>"); }
+#board[data-ghost="O"] { --ghost: var(--o); --ghost-mark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' stroke='black' stroke-width='12' fill='none'><circle cx='50' cy='50' r='40'/></svg>"); }
+#board[data-ghost] .cell:hover:empty::after {
+  content: '';
+  display: block;
+  height: 100%;
+  opacity: .25;
+  background: var(--ghost);
+  mask: var(--ghost-mark) center / contain no-repeat;
+}
+.strike { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.strike line {
+  stroke: var(--win);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw .4s ease-out .3s forwards;
+}
+
 #mode {
   font: inherit;
   margin: 0 0 12px 6px;
@@ -81,7 +103,9 @@ h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0 0 8px; letter-spacing: 2px; 
 }
 
 #score { margin: 0; opacity: .8; }
-#score b { font-size: 1.2rem; }
+#score b { font-size: 1.2rem; transition: color .3s, text-shadow .3s; }
+[data-turn="X"] #score-X { color: var(--x); text-shadow: 0 0 10px var(--x); }
+[data-turn="O"] #score-O { color: var(--o); text-shadow: 0 0 10px var(--o); }
 
 .controls { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 .controls button {
@@ -110,6 +134,7 @@ h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0 0 8px; letter-spacing: 2px; 
 
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes pulse { to { background: var(--win); transform: scale(1.04); } }
+@keyframes shake { 25%, 75% { transform: translateX(-8px); } 50% { transform: translateX(8px); } }
 @keyframes pop { 0% { transform: scale(.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {

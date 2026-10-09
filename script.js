@@ -71,8 +71,9 @@ function computerMove() {
   play(i, boardEl.children[i]);
 }
 
+// body[data-turn] makes the current player's score glow; board[data-ghost] shows the hover preview
 function setTurn(player) {
-  turn = player;
+  turn = document.body.dataset.turn = boardEl.dataset.ghost = player;
   statusEl.textContent = `${turn}'s turn`;
   statusEl.className = '';
 }
@@ -84,6 +85,7 @@ function reset() {
   setTurn('X');
   historyEl.innerHTML = '';
   boardEl.innerHTML = '';
+  boardEl.classList.remove('shake');
   for (let i = 0; i < 9; i++) {
     const cell = document.createElement('button');
     cell.className = 'cell';
@@ -110,16 +112,26 @@ function play(i, cell) {
   const result = winner(board);
   if (result) {
     over = true;
+    delete document.body.dataset.turn;
+    delete boardEl.dataset.ghost;
     score[result.player]++;
     saveScore();
     statusEl.textContent = result.player === 'draw' ? "It's a draw!" : `${result.player} wins!`;
     statusEl.className = 'done';
-    result.line?.forEach(j => boardEl.children[j].classList.add('win'));
+    if (result.line) {
+      result.line.forEach(j => boardEl.children[j].classList.add('win'));
+      // Strike line from the centre of the first winning square to the last (each square is 100 units)
+      const [x1, y1, x2, y2] = [result.line[0], result.line[2]].flatMap(k => [k % 3 * 100 + 50, Math.floor(k / 3) * 100 + 50]);
+      boardEl.insertAdjacentHTML('beforeend', `<svg class="strike" viewBox="0 0 300 300" aria-hidden="true"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" pathLength="100"/></svg>`);
+    } else {
+      boardEl.classList.add('shake');
+    }
     return;
   }
   setTurn(turn === 'X' ? 'O' : 'X');
   if (vsComputer() && turn === 'O') {
     statusEl.textContent = 'Computer is thinking';
+    delete boardEl.dataset.ghost;
     aiTimer = setTimeout(computerMove, 400);
   }
 }

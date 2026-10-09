@@ -11,6 +11,7 @@ It's a two-player game in the browser, written in HTML, CSS and JavaScript. You 
 - Spots a draw when the board fills up
 - A **Restart** button to start a new game 
 - A scoreboard of X wins, O wins and draws that is saved in the browser, so it survives a page refresh with a reset score
+- Animations: a line strikes through the winning three, your mark previews on hover, the current player's score glows, and the board shakes on a draw
 - Play against a bot: **easy** picks random squares, **hard** uses the minimax algorithm and never loses
 
 ## How to play
