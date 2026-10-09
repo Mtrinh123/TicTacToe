@@ -9,9 +9,21 @@
 <body>
   <main>
     <h1>Tic <span class="x">Tac</span> <span class="o">Toe</span></h1>
-    <p id="status" aria-live="polite">X's turn</p>
-    <div id="board" role="grid"></div>
-    <button id="restart">Restart</button>
+    <label>Opponent
+      <select id="mode">
+        <option value="human">2 players</option>
+        <option value="easy">Computer (easy)</option>
+        <option value="hard">Computer (hard)</option>
+      </select>
+    </label>
+    <p id="score"> X: <b id="score-X">0</b> | Draws: <b id="score-draw"> 0</b> | O: <b id="score-O"> 0 </b></p>
+    <p id="status" aria-live="polite"> X's turn </p>
+    <div id="board"></div>
+    <div class="controls">
+      <button id="restart">Restart</button>
+      <button id="reset-score">Reset score</button>
+    </div>
+    <ol id="history" aria-label="Move history"></ol>
   </main>
   <script src="script.js"></script>
 </body>

@@ -70,7 +70,21 @@ h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0 0 8px; letter-spacing: 2px; 
 
 .cell.win { animation: pulse .8s ease-in-out .3s infinite alternate; }
 
-#restart {
+#mode {
+  font: inherit;
+  margin: 0 0 12px 6px;
+  padding: 4px 8px;
+  border: 2px solid var(--grid);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+}
+
+#score { margin: 0; opacity: .8; }
+#score b { font-size: 1.2rem; }
+
+.controls { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.controls button {
   font: inherit;
   padding: 10px 28px;
   border: 2px solid var(--grid);
@@ -80,7 +94,19 @@ h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0 0 8px; letter-spacing: 2px; 
   cursor: pointer;
   transition: background .2s, border-color .2s;
 }
-#restart:hover { background: var(--panel); border-color: var(--win); }
+.controls button:hover:enabled { background: var(--panel); border-color: var(--win); }
+
+.controls button:disabled { opacity: .4; cursor: default; }
+
+#history {
+  width: min(90vw, 420px);
+  margin: 16px auto 0;
+  padding-left: 2em;
+  text-align: left;
+  columns: 3;
+  font-size: .9rem;
+  opacity: .8;
+}
 
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes pulse { to { background: var(--win); transform: scale(1.04); } }
